@@ -24,8 +24,9 @@ interface ConfigFileStruct {
   }[];
 }
 
-// 默认图片代理：豆瓣图片存在防盗链限制，未单独配置代理时使用该公共代理转发
-const DEFAULT_IMAGE_PROXY = 'https://images.weserv.nl/?url=';
+// 默认图片代理：豆瓣图片按 Referer 白名单拦截（第三方通用图片代理不带 Referer 会被 418 拒绝），
+// 因此默认使用自带的 /api/image-proxy，它会带上 Referer: https://movie.douban.com/ 再转发请求
+const DEFAULT_IMAGE_PROXY = '/api/image-proxy?url=';
 
 export const API_CONFIG = {
   search: {
