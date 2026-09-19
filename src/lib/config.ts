@@ -24,6 +24,9 @@ interface ConfigFileStruct {
   }[];
 }
 
+// 默认图片代理：豆瓣图片存在防盗链限制，未单独配置代理时使用该公共代理转发
+const DEFAULT_IMAGE_PROXY = 'https://images.weserv.nl/?url=';
+
 export const API_CONFIG = {
   search: {
     path: '?ac=videolist&wd=',
@@ -199,7 +202,7 @@ async function initConfig() {
             SearchDownstreamMaxPage:
               Number(process.env.NEXT_PUBLIC_SEARCH_MAX_PAGE) || 5,
             SiteInterfaceCacheTime: fileConfig.cache_time || 7200,
-            ImageProxy: process.env.NEXT_PUBLIC_IMAGE_PROXY || '',
+            ImageProxy: process.env.NEXT_PUBLIC_IMAGE_PROXY || DEFAULT_IMAGE_PROXY,
             DoubanProxy: process.env.NEXT_PUBLIC_DOUBAN_PROXY || '',
             DisableYellowFilter:
               process.env.NEXT_PUBLIC_DISABLE_YELLOW_FILTER === 'true',
@@ -247,7 +250,7 @@ async function initConfig() {
         SearchDownstreamMaxPage:
           Number(process.env.NEXT_PUBLIC_SEARCH_MAX_PAGE) || 5,
         SiteInterfaceCacheTime: fileConfig.cache_time || 7200,
-        ImageProxy: process.env.NEXT_PUBLIC_IMAGE_PROXY || '',
+        ImageProxy: process.env.NEXT_PUBLIC_IMAGE_PROXY || DEFAULT_IMAGE_PROXY,
         DoubanProxy: process.env.NEXT_PUBLIC_DOUBAN_PROXY || '',
         DisableYellowFilter:
           process.env.NEXT_PUBLIC_DISABLE_YELLOW_FILTER === 'true',
@@ -302,7 +305,7 @@ export async function getConfig(): Promise<AdminConfig> {
     adminConfig.UserConfig.AllowRegister =
       process.env.NEXT_PUBLIC_ENABLE_REGISTER === 'true';
     adminConfig.SiteConfig.ImageProxy =
-      process.env.NEXT_PUBLIC_IMAGE_PROXY || '';
+      process.env.NEXT_PUBLIC_IMAGE_PROXY || DEFAULT_IMAGE_PROXY;
     adminConfig.SiteConfig.DoubanProxy =
       process.env.NEXT_PUBLIC_DOUBAN_PROXY || '';
     adminConfig.SiteConfig.DisableYellowFilter =
@@ -436,7 +439,7 @@ export async function resetConfig() {
       SearchDownstreamMaxPage:
         Number(process.env.NEXT_PUBLIC_SEARCH_MAX_PAGE) || 5,
       SiteInterfaceCacheTime: fileConfig.cache_time || 7200,
-      ImageProxy: process.env.NEXT_PUBLIC_IMAGE_PROXY || '',
+      ImageProxy: process.env.NEXT_PUBLIC_IMAGE_PROXY || DEFAULT_IMAGE_PROXY,
       DoubanProxy: process.env.NEXT_PUBLIC_DOUBAN_PROXY || '',
       DisableYellowFilter:
         process.env.NEXT_PUBLIC_DISABLE_YELLOW_FILTER === 'true',
